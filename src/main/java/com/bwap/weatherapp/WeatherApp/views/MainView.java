@@ -1,5 +1,6 @@
 package com.bwap.weatherapp.WeatherApp.views;
 
+import com.vaadin.server.ClassResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
@@ -13,6 +14,17 @@ public class MainView extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         mainLayout();
         setHeader();
+        setLogo();
+    }
+
+    private void setLogo() {
+        HorizontalLayout logo = new HorizontalLayout();
+        logo.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        Image image = new Image("logo", new ClassResource("/logo.png"));
+        logo.setWidth("240px");
+        logo.setHeight("240px");
+        logo.addComponent(image);
+        mainLayout.addComponents(logo);
     }
 
     private void mainLayout() {
