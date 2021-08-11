@@ -19,6 +19,14 @@ public class MainView extends UI {
     private HorizontalLayout dashboard;
     private Label location;
     private Label currentTemp;
+    private HorizontalLayout mainDescriptionLayout;
+    private Label weatherDescription;
+    private Label maxWeather;
+    private Label minWeather;
+    private Label Humidity;
+    private Label Pressure;
+    private Label Wind;
+    private Label FeelsLike;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -26,6 +34,8 @@ public class MainView extends UI {
         setHeader();
       //  setLogo();
         setForm();
+        DashboardTitle();
+        dashboardDetails();
     }
 
     private void setForm() {
@@ -63,7 +73,7 @@ public class MainView extends UI {
         dashboard.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         //city location
-        location = new Label("Currently in ");
+        location = new Label("Currently in Moscow");
         location.addStyleName(ValoTheme.LABEL_H2);
         location.addStyleName(ValoTheme.LABEL_LIGHT);
 
@@ -72,7 +82,50 @@ public class MainView extends UI {
         currentTemp.setStyleName(ValoTheme.LABEL_BOLD);
         currentTemp.setStyleName(ValoTheme.LABEL_H1);
 
-        dashboard.addComponent(location, currentTemp);
+        dashboard.addComponents(location, currentTemp);
+        mainLayout.addComponents(dashboard);
+    }
+
+    private void dashboardDetails(){
+        mainDescriptionLayout = new HorizontalLayout();
+        mainDescriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        //description layout
+        VerticalLayout descriptionLayout = new VerticalLayout();
+        descriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        //Weather description
+        weatherDescription = new Label("Description : Clear Sky");
+        weatherDescription.setStyleName(ValoTheme.LABEL_SUCCESS);
+        descriptionLayout.addComponents(weatherDescription);
+
+        //Min Weather
+        minWeather = new Label("Min: 53");
+        descriptionLayout.addComponents(minWeather);
+        //minWeather.setStyleName(ValoTheme.);
+
+        //Max Weather
+        maxWeather = new Label("Max: 153");
+        descriptionLayout.addComponents(maxWeather);
+
+        VerticalLayout pressureLayout = new VerticalLayout();
+        pressureLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        Pressure = new Label("Pressure: 213Pa");
+        pressureLayout.addComponents(Pressure);
+
+        Humidity = new Label("Humidity: 213Pa");
+        pressureLayout.addComponents(Humidity);
+
+        Wind = new Label("Wind: 213Pa");
+        pressureLayout.addComponents(Wind);
+
+        FeelsLike = new Label("FeelsLike: 213Pa");
+        pressureLayout.addComponents(FeelsLike);
+
+        //mainLayout.addComponents(mainDescriptionLayout, pressureLayout);
+        mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
+        mainLayout.addComponents(mainDescriptionLayout);
     }
 
     private void setLogo() {
