@@ -1,5 +1,6 @@
 package com.bwap.weatherapp.WeatherApp.views;
 
+import com.bwap.weatherapp.WeatherApp.controller.WeatherService;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.VaadinRequest;
@@ -7,12 +8,17 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.crypto.Cipher;
 import java.util.ArrayList;
 
 @SpringUI(path = "")
 public class MainView extends UI {
+
+    @Autowired
+    private WeatherService weatherService;
 
     private VerticalLayout mainLayout;
     private NativeSelect<String> unitSelect;
@@ -40,7 +46,11 @@ public class MainView extends UI {
         dashboardDetails();
         searchButton.addClickListener(clickEvent -> {
             if(!cityTextField.getValue().equals("")){
-                updateUI();
+                try {
+                    updateUI();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }else{
                 Notification.show("Please Enter the City name");
             }
@@ -166,8 +176,24 @@ public class MainView extends UI {
 
         mainLayout.addComponents(header);
     }
-    private void updateUI(){
+    private void updateUI() throws JSONException {
         String city = cityTextField.getValue();
+        String defaultUnit;
+        weatherService.setCityName(city);
+        if(unitSelect.getValue().equals("F")){
+            weatherService.setUnit("imperials");
+            unitSelect.setValue("F");
+            defaultUnit = "\u00b0"+ "F";
+        } else {
+            weatherService.setUnit("metric");
+            defaultUnit = "\u00b0" + "C";
+            unitSelect.setValue("C");
+
+        }
+
         location.setValue("Currently in " + city);
+        JSONObject mainObject = weatherService.returnMain();
+        int temp = mainObject.getInt("temp");
+        currentTemp.setValue(temp + defaultUnit);
     }
 }

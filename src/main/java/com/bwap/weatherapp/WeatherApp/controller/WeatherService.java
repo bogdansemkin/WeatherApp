@@ -6,9 +6,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-
+@Service
 public class WeatherService {
     private OkHttpClient client;
     private Response response;
