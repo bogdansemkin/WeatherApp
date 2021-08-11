@@ -21,7 +21,7 @@ public class MainView extends UI {
 
     @Autowired
     private WeatherService weatherService;
-
+    private HorizontalLayout timelocation;
     private VerticalLayout mainLayout;
     private NativeSelect<String> unitSelect;
     private TextField cityTextField;
@@ -38,6 +38,8 @@ public class MainView extends UI {
     private Label Wind;
     private Label FeelsLike;
     private Image iconImage;
+    private Label timeLabel;
+
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -45,6 +47,7 @@ public class MainView extends UI {
         setHeader();
       //  setLogo();
         setForm();
+        timeLocation();
         DashboardTitle();
         dashboardDetails();
         searchButton.addClickListener(clickEvent -> {
@@ -89,10 +92,22 @@ public class MainView extends UI {
         mainLayout.addComponents(formLayout);
     }
 
+    private void timeLocation(){
+      
+        timelocation = new HorizontalLayout();
+        timelocation.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        //time label
+        timeLabel = new Label("18:41:30");
+        timeLabel.addStyleName(ValoTheme.LABEL_H1);
+        timeLabel.addStyleName(ValoTheme.LABEL_LIGHT);
+        timelocation.addComponents(timeLabel);
+    }
+
     private void DashboardTitle(){
 
         dashboard = new HorizontalLayout();
         dashboard.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
 
         //city location
         location = new Label("Currently in Moscow");
@@ -222,6 +237,6 @@ public class MainView extends UI {
 
 
 
-        mainLayout.addComponents(dashboard, mainDescriptionLayout);
+        mainLayout.addComponents(dashboard,timelocation ,mainDescriptionLayout);
     }
 }
