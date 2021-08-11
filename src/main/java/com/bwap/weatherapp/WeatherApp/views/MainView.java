@@ -216,7 +216,10 @@ public class MainView extends UI {
         minWeather.setValue("Min Temp: " + weatherService.returnMain().getInt("temp_min") + unitSelect.getValue());
         maxWeather.setValue("Max Temp: " + weatherService.returnMain().getInt("temp_max") + unitSelect.getValue());
         Pressure.setValue("Pressure: " +weatherService.returnMain().getInt("pressure"));
-        Humidity.
+        Humidity.setValue("Humadity: " + weatherService.returnMain().get("humidity"));
+        Wind.setValue("Wind: " +weatherService.returnWind().getInt("speed"));
+        FeelsLike.setValue("Feels like: " + weatherService.returnMain().getDouble("feels_like"));
+
 
 
         mainLayout.addComponents(dashboard, mainDescriptionLayout);
