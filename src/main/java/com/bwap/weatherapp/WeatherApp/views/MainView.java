@@ -6,7 +6,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.json.JSONException;
 
+import javax.crypto.Cipher;
 import java.util.ArrayList;
 
 @SpringUI(path = "")
@@ -36,6 +38,13 @@ public class MainView extends UI {
         setForm();
         DashboardTitle();
         dashboardDetails();
+        searchButton.addClickListener(clickEvent -> {
+            if(!cityTextField.getValue().equals("")){
+                updateUI();
+            }else{
+                Notification.show("Please Enter the City name");
+            }
+        });
     }
 
     private void setForm() {
@@ -156,5 +165,9 @@ public class MainView extends UI {
         header.addComponent(title);
 
         mainLayout.addComponents(header);
+    }
+    private void updateUI(){
+        String city = cityTextField.getValue();
+        location.setValue("Currently in " + city);
     }
 }
