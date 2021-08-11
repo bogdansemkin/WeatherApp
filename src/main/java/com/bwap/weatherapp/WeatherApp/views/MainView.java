@@ -22,6 +22,7 @@ public class MainView extends UI {
     @Autowired
     private WeatherService weatherService;
     private HorizontalLayout timelocation;
+    private HorizontalLayout textTimeLocation;
     private VerticalLayout mainLayout;
     private NativeSelect<String> unitSelect;
     private TextField cityTextField;
@@ -39,7 +40,7 @@ public class MainView extends UI {
     private Label FeelsLike;
     private Image iconImage;
     private Label timeLabel;
-
+    private Label textTimeTabel;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -48,6 +49,7 @@ public class MainView extends UI {
       //  setLogo();
         setForm();
         timeLocation();
+        timeTextLocation();
         DashboardTitle();
         dashboardDetails();
         searchButton.addClickListener(clickEvent -> {
@@ -92,14 +94,26 @@ public class MainView extends UI {
         mainLayout.addComponents(formLayout);
     }
 
+    private void timeTextLocation(){
+        textTimeLocation = new HorizontalLayout();
+        textTimeLocation.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        //text time label
+        textTimeTabel = new Label("Local time");
+        textTimeTabel.addStyleName(ValoTheme.LABEL_H2);
+        textTimeTabel.addStyleName(ValoTheme.LABEL_LIGHT);
+        textTimeLocation.addComponents(textTimeTabel);
+    }
+
     private void timeLocation(){
       
         timelocation = new HorizontalLayout();
-        timelocation.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        timelocation.setDefaultComponentAlignment(Alignment.TOP_CENTER);
         //time label
-        timeLabel = new Label("18:41:30");
+
+        timeLabel = new Label("18:57:02");
         timeLabel.addStyleName(ValoTheme.LABEL_H1);
-        timeLabel.addStyleName(ValoTheme.LABEL_LIGHT);
+        timeLabel.addStyleName(ValoTheme.LABEL_BOLD);
+
         timelocation.addComponents(timeLabel);
     }
 
@@ -237,6 +251,6 @@ public class MainView extends UI {
 
 
 
-        mainLayout.addComponents(dashboard,timelocation ,mainDescriptionLayout);
+        mainLayout.addComponents(dashboard,textTimeLocation,timelocation,mainDescriptionLayout);
     }
 }
